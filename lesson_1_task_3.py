@@ -1,11 +1,8 @@
 
-#first_name = ""
-#last_name = ""
 
-def input():
-    first_name = "Виктор"
-    last_name = "Канунников"
-    return last_name, first_name
+first_name = input("Введите ваше имя: ")
+last_name = input("Введите вашу фамилию: ")
 
+ 
+print(f"Вас зовут: {last_name} {first_name}")
 
-print("Вас зовут:",input())
