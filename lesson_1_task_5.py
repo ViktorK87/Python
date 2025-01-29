@@ -1,6 +1,14 @@
 def someFunc(num):
     print(num)
 
-
-for i in [8800553535]:
-    someFunc(i)
+someFunc(8)
+someFunc(8)
+someFunc(0)
+someFunc(0)
+someFunc(5)
+someFunc(5)
+someFunc(5)
+someFunc(3)
+someFunc(5)
+someFunc(3)
+someFunc(5)
