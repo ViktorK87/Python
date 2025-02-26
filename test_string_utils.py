@@ -1,72 +1,51 @@
 import pytest
-from string_utils import StringUtils
+from String_utils import StringUtils
 
-string_utils = StringUtils()
+@pytest.mark.parametrize('word , result', [("skypro", "Skypro"), ("hello world", "Hello world")])
+def test_capitalize_positive(word, result):
+    string_utils = StringUtils()
+    res = string_utils.capitalize(word)
+    assert res == result
 
+@pytest.mark.parametrize('word , result', [("Skypro", "Skypro"), ("TEST", "TEST"), ("!!hello world", "!!hello world")])
+def test_capitalize_negative(word, result):
+    string_utils = StringUtils()
+    res = string_utils.capitalize(word)
+    assert res == result
 
-#Позитивные проверки capitalize:
-res = string_utils.test_capitalize("error")
-assert res == "Error"
+@pytest.mark.parametrize('string , result', [("   skypro", "skypro"), (" ! sky pro", "! sky pro")])
+def test_trim_positive(string, result):
+    string_Utils = StringUtils()
+    res = string_Utils.trim(string)
+    assert res == result
 
-res = string_utils.test_capitalize("Test")
-assert res == "Test"
+@pytest.mark.parametrize('string , result', [("   ", ""), ("! !   sky pro", "! !   sky pro")])
+def test_trim_negative(string, result):
+    string_Utils = StringUtils()
+    res = string_Utils.trim(string)
+    assert res == result
 
-#Негативные проверки capitalize:
-res = string_utils.test_capitalize("12345")
-assert res == "12345"
+@pytest.mark.parametrize('string, symbol, result', [("SkyPro", "S", True), ("Test", "e", True)])
+def test_contains_positive(string, symbol, result):
+    string_utils = StringUtils()
+    res = string_utils.contains(string, symbol)
+    assert res == result
 
-res = string_utils.test_capitalize("!проверка")
-assert res == "!проверка"
-
-res = string_utils.test_capitalize(".%:!!()")
-assert res == ".%:!!()"
-
-
-#Позитивная проверка contains:
-res4 = string_utils.test_contains("Error", "r")
-assert res4 == True
-res4 = string_utils.test_contains("1234567", "23")
-assert res4 == True
-
-#Негативная проверка containscontains:
-res4 = string_utils.test_contains("Error", "А")
-assert res4 == True
-res4 = string_utils.test_contains("Error", "R")
-assert res4 == True
-res4 = string_utils.test_contains("Error", "y")
-assert res4 == True
-res4 = string_utils.test_contains("Error", "")
-assert res4 == True
-res4 = string_utils.test_contains("", "")
-assert res4 == True
-res4 = string_utils.test_contains("", " ")
-assert res4 == True
-
-#Позитивная проверка test_delete_symbol:
-res2 = string_utils.test_delete_symbol("Тестировщики","и")
-assert res2 == "Тестровщк"
-res2 = string_utils.test_delete_symbol("Тестировщики","ест")
-assert res2 == "Тировщики"
-
-#Негативные проверки test_delete_symbol:
-res2 = string_utils.test_delete_symbol("Тестировщики","а")
-assert res2 == "Тестировщики"
-res2 = string_utils.test_delete_symbol("Тестировщики","1")
-assert res2 == "Тестировщики"
-res2 = string_utils.test_delete_symbol("Тестировщики","а")
-assert res2 == "Тестировщики"
+@pytest.mark.parametrize('string, symbol, result', [("SkyPro", "Y", False), ("Test", "a", False)])
+def test_contains_negative(string, symbol, result):
+    string_utils = StringUtils()
+    res = string_utils.contains(string, symbol)
+    assert res == result
 
 
-#Позитивная проверка test_trim:
-res3 = string_utils.test_trim( "    Test")
-assert res3 == "Test"
-res3 = string_utils.test_trim( "   ")
-assert res3 == ""
+@pytest.mark.parametrize('string, symbol, result', [("SkyPro", "y", "SkPro"), ("Test", "e", "Tst")])
+def test_delete_symbol_positive(string, symbol, result):
+    string_utils = StringUtils()
+    res = string_utils.delete_symbol(string, symbol)
+    assert res == result
 
-#Негативная проверка test_trim:
-res3 = string_utils.test_trim( "    Test")
-assert res3 == "   Test"
-res3 = string_utils.test_trim( "Test  ")
-assert res3 == "Test  "
-res3 = string_utils.test_trim( "Test    test")
-assert res3 == "Test    test"
+@pytest.mark.parametrize('string, symbol, result', [("SkyPro", "Y", "SkyPro"), ("Test", "E", "Test")])
+def test_delete_symbol_negative(string, symbol, result):
+    string_utils = StringUtils()
+    res = string_utils.delete_symbol(string, symbol)
+    assert res == result
