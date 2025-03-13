@@ -14,7 +14,8 @@ button = driver.find_element(By.CSS_SELECTOR, ("#ajaxButton"))
 button.click()
 waiter = WebDriverWait(driver, 40)
 waiter.until(
-    EC.text_to_be_present_in_element((By.CSS_SELECTOR, ".bg-success"), "Data loaded with AJAX get request.")
+    EC.text_to_be_present_in_element((By.CSS_SELECTOR, ".bg-success"),
+                                      "Data loaded with AJAX get request.")
 )
 green_text = driver.find_element(By.CSS_SELECTOR, (".bg-success"))
 print(green_text.text)
