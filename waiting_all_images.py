@@ -7,19 +7,16 @@ from selenium.webdriver.support import expected_conditions as EC
 
 driver = webdriver.Chrome(
     service=ChromeService(ChromeDriverManager().install()))
-driver.get("https://bonigarcia.dev/selenium-webdriver-java/loading-images.html")
-
-# waiter = WebDriverWait(driver, 40)
-
-# waiter.until(
-#    EC.presence_of_all_elements_located((By.TAG_NAME, 'img'))
-# )
-
-elements = WebDriverWait(driver, 5).until(
-    EC.presence_of_all_elements_located((By.CLASS_NAME, "img"))
+driver.get(
+    "https://bonigarcia.dev/selenium-webdriver-java/loading-images.html"
+    )
+driver.fullscreen_window()
+waiter = WebDriverWait(driver, 40)
+waiter.until(
+    EC.text_to_be_present_in_element((By.CSS_SELECTOR, "#text"), "Done!")
 )
 
-
-
+image = driver.find_element(By.CSS_SELECTOR, "#award")
+atribute_src = image.get_property("src")
+print("Атрибут = ", atribute_src)
 driver.quit()
-
