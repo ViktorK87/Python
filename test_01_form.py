@@ -1,4 +1,3 @@
-import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
@@ -101,27 +100,14 @@ green_color = "rgba(209, 231, 221, 1)"
 print(zip_color)
 print(first_name_color, last_name_color)
 
-
-@pytest.mark.parametrize('input_color, green_color',
-                         [(first_name_color, green_color),
-                          (last_name_color, green_color),
-                          (address_color, green_color),
-                          (city_color, green_color),
-                          (country_color, green_color),
-                          (email_color, green_color),
-                          (phone_color, green_color),
-                          (job_position_color, green_color),
-                          (company_color, green_color)]
-                         )
-def test_inputs_color(input_color, green_color):
-    assert input_color == green_color
+colors = [first_name_color, last_name_color, address_color,
+          city_color, country_color, email_color, phone_color,
+          job_position_color, company_color]
 
 
-@pytest.mark.parametrize('zip_color, red_color',
-                         [(zip_color, red_color)]
-                         )
-def test_zip_color(zip_color, red_color):
+def test_invalid_zip():
+    for color in colors:
+        assert color == green_color
+
     assert zip_color == red_color
-
-
-driver.quit()
+    driver.close()
