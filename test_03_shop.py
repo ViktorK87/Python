@@ -3,7 +3,8 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
-
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 driver = webdriver.Chrome(
     service=ChromeService(ChromeDriverManager().install()))
@@ -29,12 +30,14 @@ driver.find_element(By.CSS_SELECTOR,
 driver.find_element(By.CSS_SELECTOR, "#add-to-cart-sauce-labs-onesie").click()
 driver.find_element(By.CSS_SELECTOR, ".shopping_cart_link").click()
 driver.find_element(By.CSS_SELECTOR, "#checkout").click()
-driver.find_element(By.CSS_SELECTOR, "#first-name").send_keys("Viktor")
+waiter = WebDriverWait(driver, 10)
+waiter.until(EC.presence_of_element_located((
+                           By.CSS_SELECTOR, '#first-name'))
+             ).send_keys("Viktor")
 driver.find_element(By.CSS_SELECTOR, "#last-name").send_keys("Kanunnikov")
 driver.find_element(By.CSS_SELECTOR, "#postal-code").send_keys("111401")
 driver.find_element(By.CSS_SELECTOR, "#continue").click()
 total = driver.find_element(By.CSS_SELECTOR, '[data-test="total-label"]').text
-driver.close()
 
 last_total = "$" + re.findall(r'\d+', total)[0] + \
              "." + re.findall(r'\d+', total)[1]
@@ -42,6 +45,4 @@ last_total = "$" + re.findall(r'\d+', total)[0] + \
 
 def test_total_summ():
     assert last_total == "$58.29"
-
-
-driver.close()
+    driver.close()
