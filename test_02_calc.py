@@ -8,13 +8,17 @@ from selenium.webdriver.support import expected_conditions as EC
 driver = webdriver.Chrome(
     service=ChromeService(ChromeDriverManager().install()))
 
-driver.get(
-           "https://bonigarcia.dev/\
-            selenium-webdriver-java/slow-calculator.html"
-           )
+url = (
+    "https://bonigarcia.dev/selenium-webdriver-java/slow-calculator.html"
+)
+driver.get(url)
 
-input = driver.find_element(By.CSS_SELECTOR, ('#delay'))
-input.send_keys('45')
+waiter = WebDriverWait(driver, 10)
+delay_input = waiter.until(EC.presence_of_element_located((
+                           By.CSS_SELECTOR, '#delay'))
+                           )
+delay_input.clear()
+delay_input.send_keys("45")
 
 btn_7 = driver.find_element(By.XPATH,
                             ("//span[@class='btn btn-outline-primary' \
@@ -35,7 +39,7 @@ btn_plus.click()
 btn_8.click()
 btn_equals.click()
 
-waiter = WebDriverWait(driver, 45)
+waiter = WebDriverWait(driver, 50)
 waiter.until(EC.text_to_be_present_in_element((By.CSS_SELECTOR,
                                               ".screen"), "15")
              )
@@ -45,6 +49,4 @@ screen = driver.find_element(By.CSS_SELECTOR, ".screen")
 
 def test_calculation():
     screen.text == 15
-
-
-driver.close()
+    driver.close()
