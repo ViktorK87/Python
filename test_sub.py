@@ -16,19 +16,26 @@ def db_connection():
     connection.close()
 
 
-def test_crud_subject(db_connection):
+def test_insert(db_connection):
     connection, transaction = db_connection
     subject_page = SubjectPage(connection)
-
     count_before = subject_page.count_subjects()
     subject_page.insert_subject("Applied Math II")
     count_after = subject_page.count_subjects()
-
     assert count_after == count_before + 1
 
+
+def test_get(db_connection):
+    connection, transaction = db_connection
+    subject_page = SubjectPage(connection)
+    subject_page.insert_subject("Applied Math II")
     result = subject_page.get_subject("Applied Math II")
     assert result.fetchone() is not None
 
+
+def test_delete(db_connection):
+    connection, transaction = db_connection
+    subject_page = SubjectPage(connection)
     subject_page.delete_subject("Applied Math II")
     result = subject_page.get_subject("Applied Math II")
     assert result.fetchone() is None
