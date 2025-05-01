@@ -1,5 +1,5 @@
 from selenium.webdriver.common.by import By
-
+import allure
 
 class Product_page:
     def __init__(self, driver):
@@ -7,14 +7,21 @@ class Product_page:
         self._driver.implicitly_wait(3)
 
     def add_product(self):
-        self._driver.find_element(
-            By.CSS_SELECTOR, '#add-to-cart-sauce-labs-backpack'
-            ).click()
-        self._driver.find_element(
-            By.CSS_SELECTOR, '#add-to-cart-sauce-labs-bolt-t-shirt'
-            ).click()
-        self._driver.find_element(
-            By.CSS_SELECTOR, '#add-to-cart-sauce-labs-onesie'
-            ).click()
-        self._driver.find_element(
-            By.CSS_SELECTOR, '.shopping_cart_link').click()
+        """
+            добавление товаров в корзину
+        """
+        with allure.step("добавление в корзину рюкзак"):
+            self._driver.find_element(
+                By.CSS_SELECTOR, '#add-to-cart-sauce-labs-backpack'
+                ).click()
+        with allure.step("добавить в корзину футболку"):
+            self._driver.find_element(
+                By.CSS_SELECTOR, '#add-to-cart-sauce-labs-bolt-t-shirt'
+                ).click()
+        with allure.step("добавить в корзину комбенизон"):
+            self._driver.find_element(
+                By.CSS_SELECTOR, '#add-to-cart-sauce-labs-onesie'
+                ).click()
+        with allure.step("переход в корзину"):
+            self._driver.find_element(
+                By.CSS_SELECTOR, '.shopping_cart_link').click()

@@ -6,8 +6,17 @@ from product_page import Product_page
 from your_Information import Your_information
 from inventory import Inventory
 from check_out_page import Check_out_page
+import allure
 
+@allure.severity("blocker")
+
+
+@allure.title("Проверка итоговой стоимости покупок")
+@allure.description("Вход, добавление в корзину, заполнение данных, покупка и проверка итоговой стоимости")
 def test_final_price():
+    """
+        покупка товаров и проверка итоговой стоимости
+    """
     driver = webdriver.Chrome(
     service = ChromeService(ChromeDriverManager().install()))
     login_page = Login_page(driver)
